@@ -1,5 +1,6 @@
 import 'package:airplane/shared/theme.dart';
 import 'package:airplane/ui/widgets/destination_card.dart';
+import 'package:airplane/ui/widgets/destination_tile.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -90,10 +91,58 @@ class _HomePageState extends State<HomePage> {
       );
     }
 
+    Widget newDestinations() {
+      return Container(
+        margin: EdgeInsets.only(
+          top: 30,
+          left: defaultMargin,
+          right: defaultMargin,
+          bottom: 100,
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Text(
+              'New This Year',
+              style: blackTextStyle.copyWith(
+                fontSize: 18,
+                fontWeight: semiBold,
+              ),
+            ),
+            DestinationTile(
+              city: 'Singaraja',
+              title: 'Danau Beratan',
+              imgUrl: 'assets/img_destination5.png',
+              rating: 4.7,
+            ),
+            DestinationTile(
+              city: 'Singaraja',
+              title: 'Danau Beratan',
+              imgUrl: 'assets/img_destination5.png',
+              rating: 4.7,
+            ),
+            DestinationTile(
+              city: 'Singaraja',
+              title: 'Danau Beratan',
+              imgUrl: 'assets/img_destination5.png',
+              rating: 4.7,
+            ),
+            DestinationTile(
+              city: 'Singaraja',
+              title: 'Danau Beratan',
+              imgUrl: 'assets/img_destination5.png',
+              rating: 4.7,
+            ),
+          ],
+        ),
+      );
+    }
+
     return ListView(
       children: <Widget>[
         header(),
         popularDestination(),
+        newDestinations(),
       ],
     );
   }
