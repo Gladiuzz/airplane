@@ -1,4 +1,8 @@
 import 'package:airplane/shared/theme.dart';
+import 'package:airplane/ui/pages/choose_seat_page.dart';
+import 'package:airplane/ui/widgets/custom_btn.dart';
+import 'package:airplane/ui/widgets/interest_item.dart';
+import 'package:airplane/ui/widgets/photo_item.dart';
 import 'package:flutter/material.dart';
 
 class DetailPage extends StatelessWidget {
@@ -143,10 +147,99 @@ class DetailPage extends StatelessWidget {
                   Text(
                     'Berada di jalur jalan provinsi yang menghubungkan Denpasar Singaraja serta letaknya yang dekat dengan Kebun Raya Eka Karya menjadikan tempat Bali.',
                     style: blackTextStyle.copyWith(
-                      height: 2.6,
+                      height: 2,
+                    ),
+                  ),
+                  // NOTE : PHOTOS
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Text(
+                    'Photos',
+                    style: blackTextStyle.copyWith(
+                      fontSize: 16,
                       fontWeight: semiBold,
                     ),
                   ),
+                  SizedBox(
+                    height: 6,
+                  ),
+                  Row(
+                    children: <Widget>[
+                      PhotoItem(
+                        imgUrl: 'assets/img_photo1.png',
+                      ),
+                    ],
+                  ),
+                  // NOTE : INTEREST
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Text(
+                    'Interests',
+                    style: blackTextStyle.copyWith(
+                      fontSize: 16,
+                      fontWeight: semiBold,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 6,
+                  ),
+                  Row(
+                    children: [
+                      InterestItem(nameInterest: 'Kids Park'),
+                      InterestItem(nameInterest: 'Central Mall'),
+                    ],
+                  ),
+
+                  // NOTE: BOOK BUTTON
+                ],
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.symmetric(
+                vertical: 30,
+              ),
+              width: double.infinity,
+              child: Row(
+                children: <Widget>[
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        // NOTE: PRICE
+                        Text(
+                          '2.500.000',
+                          style: blackTextStyle.copyWith(
+                            fontSize: 18,
+                            fontWeight: medium,
+                          ),
+                        ),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        Text(
+                          'per Orang',
+                          style: greyTextStyle.copyWith(
+                            fontWeight: light,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  // NOTE: BOOK BTN
+                  CustomBtn(
+                    title: 'Book Now',
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const ChooseSeatPage(),
+                        ),
+                      );
+                    },
+                    width: 170,
+                  )
                 ],
               ),
             )
@@ -157,12 +250,14 @@ class DetailPage extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: kBgColor,
-      body: Stack(
-        children: <Widget>[
-          backgroundImg(),
-          customShadow(),
-          content(),
-        ],
+      body: SingleChildScrollView(
+        child: Stack(
+          children: <Widget>[
+            backgroundImg(),
+            customShadow(),
+            content(),
+          ],
+        ),
       ),
     );
   }
