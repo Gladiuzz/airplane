@@ -5,19 +5,16 @@ import 'package:airplane/ui/widgets/custom_text_form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class SignUpPage extends StatefulWidget {
-  SignUpPage({Key? key}) : super(key: key);
+class SignInPage extends StatefulWidget {
+  SignInPage({Key? key}) : super(key: key);
 
   @override
-  State<SignUpPage> createState() => _SignUpPageState();
+  State<SignInPage> createState() => _SignInPageState();
 }
 
-class _SignUpPageState extends State<SignUpPage> {
-  final TextEditingController nameController = TextEditingController(text: '');
+class _SignInPageState extends State<SignInPage> {
   final TextEditingController emailController = TextEditingController(text: '');
   final TextEditingController passwordController =
-      TextEditingController(text: '');
-  final TextEditingController phoneNumberController =
       TextEditingController(text: '');
 
   @override
@@ -26,7 +23,7 @@ class _SignUpPageState extends State<SignUpPage> {
       return Container(
         margin: const EdgeInsets.only(top: 30),
         child: Text(
-          'Join us and get\nyour next journey',
+          'Sign In with your\nExisting Account',
           style: blackTextStyle.copyWith(
             fontSize: 24,
             fontWeight: semiBold,
@@ -36,18 +33,6 @@ class _SignUpPageState extends State<SignUpPage> {
     }
 
     Widget inputSection() {
-      Widget fullNameInput() {
-        return CustomTextFormField(
-          controller: nameController,
-          margin: EdgeInsets.only(
-            bottom: 20,
-          ),
-          title: 'Full Name',
-          hintText: 'Your Full Name',
-          keyboardType: TextInputType.name,
-        );
-      }
-
       Widget emailInput() {
         return CustomTextFormField(
           controller: emailController,
@@ -73,24 +58,12 @@ class _SignUpPageState extends State<SignUpPage> {
         );
       }
 
-      Widget phoneInput() {
-        return CustomTextFormField(
-          controller: phoneNumberController,
-          margin: EdgeInsets.only(
-            bottom: 30,
-          ),
-          title: 'Phone Number',
-          hintText: 'Your Phone Number',
-          keyboardType: TextInputType.phone,
-        );
-      }
-
       Widget submitBtn() {
         return BlocConsumer<AuthCubit, AuthState>(
           listener: (context, state) {
             if (state is AuthSuccess) {
               Navigator.pushNamedAndRemoveUntil(
-                  context, '/bonus', (route) => false);
+                  context, '/main', (route) => false);
             } else if (state is AuthFailed) {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
@@ -107,15 +80,13 @@ class _SignUpPageState extends State<SignUpPage> {
               );
             }
             return CustomBtn(
-                title: 'Get Started',
+                title: 'Sign In',
                 onPressed: () {
                   print(passwordController.text);
 
-                  context.read<AuthCubit>().signUp(
+                  context.read<AuthCubit>().signIn(
                         email: emailController.text,
-                        name: nameController.text,
                         password: passwordController.text,
-                        phoneNumber: phoneNumberController.text,
                       );
                 });
           },
@@ -134,10 +105,8 @@ class _SignUpPageState extends State<SignUpPage> {
         ),
         child: Column(
           children: <Widget>[
-            fullNameInput(),
             emailInput(),
             passwordInput(),
-            phoneInput(),
             submitBtn(),
           ],
         ),
@@ -147,7 +116,7 @@ class _SignUpPageState extends State<SignUpPage> {
     Widget tacBtn() {
       return GestureDetector(
         onTap: () {
-          Navigator.pushNamed(context, '/sign-in');
+          Navigator.pushNamed(context, '/sign-up');
         },
         child: Container(
           alignment: Alignment.center,
@@ -156,7 +125,7 @@ class _SignUpPageState extends State<SignUpPage> {
             bottom: 73,
           ),
           child: Text(
-            'Have an account? Sign In',
+            "Don't have an account? Sign Up",
             style: greyTextStyle.copyWith(
               fontSize: 16,
               fontWeight: light,
